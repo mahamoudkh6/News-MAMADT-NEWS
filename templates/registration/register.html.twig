@@ -1,0 +1,29 @@
+{% extends 'layoutShop.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+ <div class="container">
+        <article class="col-md-8 maincontent">
+
+				<header class="page-header">
+					<h1>Inscription</h1>
+				</header> <br>
+
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+                {{ form_errors(registrationForm) }}
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                            label: 'Password'
+                      }) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+                        <button type="submit" class="btn btn-secondary">Register</button><br>
+                {{ form_end(registrationForm) }}
+
+         </article><br>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'layoutShop.html.twig' %}
+
+{% block title %}Détails du Produit{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Détails du Produit</h1>
+
+        <div class="card">
+            <img src="{#{{ asset('eshop/' ~ product.attachment) }}#}" class="card-img-top" alt="{#{{ product.title }}#}">
+            <div class="card-body">
+                <h5 class="card-title">Titre: {#{{ product.title }}#}</h5>
+                <p class="card-text">Contenu: {# {{ product.content }}#}</p>
+                <p class="card-text">Prix: {#{{ product.price }}#} €</p>
+                <p class="card-text">Origine : {#{{ product.origine }}#}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{#{{ path('add_to_cart', {'id': product.id}) }}#}" class="btn btn-primary">Ajouter au panier</a>
+                <a href="{{ path('product_list') }}" class="btn btn-primary">Retour à la liste des produits</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

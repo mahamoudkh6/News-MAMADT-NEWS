@@ -1,0 +1,195 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+   	<link rel="stylesheet" href="{{ asset('eshop/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('eshop/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('eshop/css/style.css') }}">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+		<!-- Google Fonts Roboto -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+{% endblock %}
+
+{% block head_javascripts %}
+    <script src="{{ asset( 'eshop/js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('eshop/js/font-awesome.min.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+   	{# NAVbar  #}
+   <!-- NAVbar 1-->
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container">
+     <a class="navbar-brand" href="{{ path('home') }}">MAMAD-T ESHOP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+           <li class="nav-item">
+              <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+            </li>
+             <li class="nav-item">
+             <a class="nav-link" href="{{ path('product_list') }} ">Tous les produits</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{{ path('about') }}">A propos de nous</a>
+            </li>
+			</li>
+             <li class="nav-item">
+              <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+            </li>
+        </ul>
+
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+				{% if not is_granted("ROLE_USER") %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_login') }}">Login</a>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+								</li>
+							{% endif %}
+
+						<a href="/paniers" class="btn btn-info position-relative">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								{# {% if shopping_cart.length > 0 %}
+									<span id="shoppingCartCount">{{ shopping_cart.length }}</span>
+								{% else %}
+									<span>0</span>
+								{% endif %}  #}
+							</span>
+						</a>
+					</li>
+
+
+										{# {% if user %}
+										<li class="nav-item">
+											<a class="btn ml-2">Salut, <strong>{{ user.prenom }}</strong></a>
+										</li>
+										{% endif %}
+										<li class="nav-item">
+											{% if user %}
+												<a class="btn" href="/logout">Deconnexion</a>
+											{% else %}
+												<a class="btn" href="/inscription">Inscription</a>
+											{% endif %}
+										</li> #}
+        	</ul>
+    	</div>
+ 	</div>
+ </nav>
+      <!-- fin navbar1 -->
+
+      <!-- navbar2 -->
+
+<nav class="navbar  bg-light">
+    <div class="container  ">
+        <div class="col-lg-12 col-md-12 col-sm-12 justify-content-center">
+
+      <!-- <a class="navbar-brand">Navbar</a> -->
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Que voulez vous chercher aujoud'hui..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Recherche</button>
+      </form>
+    </div>
+    </div>
+  </nav>
+
+<!-- fin navbar2 -->
+{# fin navbar  #}
+
+
+
+{# content of each page get inserted here... #}
+    {% block content %}{% endblock %}
+
+
+
+
+    <!-- Footer-->
+     {# Footer  #}
+
+		<footer id="footer" class="top-space">
+
+			<div class="footer1">
+				<div class="container">
+					<div class="row">
+
+						<div class="col-md-3 widget">
+							<h3 class="widget-title">Contact</h3>
+							<div class="widget-body">
+								<p>+339 99 99 99 99<br>
+									<a href="mailto:#">mamadt@mamadt.com</a><br>
+									<br>
+									9999 Rue Paris, 75018 Paris 18 France
+								</p>
+							</div>
+						</div>
+
+
+
+						<div class="col-md-6 widget">
+							<h3 class="widget-title">Infos</h3>
+							<div class="widget-body">
+								<p>N'hésitez pas à nous rendre visite pour vous offrir un véritable voyage gustatif de l'autre côté de la Méditerranée <br>
+						 MAMAD-T vous ouvre ses portes du mardi au dimanche de 09:00 à 19:00.</p>
+						</div>
+
+					</div>
+					 {# row of widgets  #}
+				</div>
+			</div>
+
+			<div class="footer2">
+				<div class="container">
+					<div class="row">
+
+						<div class="col-md-6 widget">
+							<div class="widget-body">
+								<p class="simplenav">
+									<a href="/">Home</a>
+									<a href="/aProposDeNous">A propos de nous</a>
+									<a href="/contactezNous">Contactez nous</a>
+									<span>
+								{#	{% if user %}
+										<span>Welcome, <strong>{{ user.prenom }}</strong></span>
+										<a class="mr-2" href="/logout">Deconnexion</a>
+									{% else %}
+										<a href="/inscription">Inscription</a>
+									{% endif %}
+									</span>#}
+								</p>
+							</div>
+						</div>
+
+						<div class="col-md-6 widget">
+							<div class="widget-body">
+								<p class="text-right">
+									Copyright &copy; 2023
+									<a href="/" rel="designer">MAMAD-T</a>
+								</p>
+							</div>
+						</div>
+
+					</div>
+					{# row of widgets #}
+			</div>
+		</footer>
+		{# Fin Footer  #}
+{% endblock %}
+
+{% block javascripts %}
+   	<script src="{{ asset( 'eshop/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('eshop/js/font-awesome.min.js') }}"></script>
+
+
+{% endblock %}

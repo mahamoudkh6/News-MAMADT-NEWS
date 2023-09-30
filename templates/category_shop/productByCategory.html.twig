@@ -1,0 +1,32 @@
+{% extends 'layoutShop.html.twig' %}
+
+{% block title %}Produits de la catégorie {{ category.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">Produits de la catégorie {{ category.name }}</h1>
+        </header>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ asset('eshop/assets/img/{{ product.attachment }}') }}" width="150" height="200" class="card-img-top" alt="{{ product.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{#{{ path('product_show', { 'id': product.id }) }}#}" class="text-decoration-none">{{ product.title }}</a></h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-muted">
+                                {# <p class="card-text">{{ product.content }}</p> #}
+                                <b>Prix : {{ product.price }} €</b>
+                                <p class="card-text">Origine : {{ product.origine }}</p>
+                                <a href="#" class="btn btn-primary add-to-cart" data-product="{{ product.id }}">Ajouter au panier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
