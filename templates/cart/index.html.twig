@@ -1,0 +1,104 @@
+{% extends 'layoutShop.html.twig' %}
+{% block title %} 	Acceuil	{% endblock %}
+
+{% block partial_styles %}
+<style>
+    @media (min-width: 1025px) {
+        .h-custom {
+        height: 100vh !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10" id="shoppingList">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">Votre Panier</h3>
+        </div>
+      {#  {% if shopping_cart.length > 0 %}  #}
+            {% set total = 0 %}
+          {#    {% for key, item in shopping_cart %} #}
+                <div class="card rounded-3 mb-4">
+                    <div class="card-body p-4">
+                        <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                            {#   <img src="{{item.product_image}}" #}
+                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                           {#    <p class="lead fw-normal mb-2">{{item.product_name}}</p> #}
+                            {# <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p> #}
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button class="btn btn-link px-2"
+                            onclick="subByOne(event)">
+                            <i class="fas fa-minus"></i>
+                            </button>
+
+                           {#    <input id="form{{item.product_id}}" min="1" name="quantity" onchange="updateCart(this.value, {{item.product_id}})" value="{{item.quantity}}" type="number"
+                            class="form-control form-control-sm" />#}
+
+                            <button class="btn btn-link px-2"
+                            onclick="addByOne(event)">
+                            <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                           {#    <h5 id="subTotal-{{item.product_id}}" class="mb-0">€{{item.product_price * item.quantity}}</h5> #}
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            {#   <button id="{{item.product_id}}" type="button" class="text-danger btn specialDeleteClass"><i class="fas fa-trash fa-lg"></i></button> #}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+           {#        {% set quantity = item.quantity %}
+                {% set productPrice = item.product_price %}
+                {% set subtotal = quantity * productPrice %}
+                {% set total = total + subtotal %}
+           {% endfor %}  #}
+
+
+            <div class="card rounded-3 mb-4">
+            <div class="card-body p-4">
+                <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                    <p class="lead fw-bolder mb-2">Total à payer: </p>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <h5 class="mb-0">€{{total}}</h5>
+                </div>
+                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="my-5">
+            <div class="card-body">
+                <button type="button" id="goToChekOut" class="btn btn-success btn-block btn-lg">Passer a la Caisse</button>
+            </div>
+            </div>
+      {# {% else %}#}
+            <div class="card">
+                <div class="card-body">
+                    <p>Aucun produit ajouter dans le panier.</p>
+                </div>
+            </div>
+        {# {% endif %}#}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
