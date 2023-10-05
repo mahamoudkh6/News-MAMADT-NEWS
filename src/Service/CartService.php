@@ -12,44 +12,83 @@ class CartService
     private RequestStack $requestStack;
     private EntityManagerInterface $em;
 
-        public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
-        {
-            $this->requestStack = $requestStack;
-            $this->em = $em;
-        }
-
-        public function addToCart(int $id): void
-        {
-            $card = $this->requestStack->getSession()->get('card', []);
-            if (empty($card[$id])) {
-                $card[$id] = 1;
-            } else {
-                $card[$id]++;
+            public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
+            {
+                $this->requestStack = $requestStack;
+                $this->em = $em;
             }
-            $this->getSession()->set('cart', $card);
-    }
-
-        public function getTotal()
-        {
-        $cart = $this->getSession()->set('cart');
-        $cardData = [];
-        foreach($cart as $id =>$quantity){
-        $product = $this->em->getRepository(Product::class)->findAll(['id' => $id]);
-        if(!$product){
-
-        }
-        $cardData[] =[
-        'product' => $product,
-        'quantity' => $quantity
-        ];
-        }
-        return $cardData;
-        }
 
 
-        private function getSession(): SessionInterface
-        {
-        return $this->requestStack->getSession();
-        }
+            public function addToCart(int $id): void
+            {
+                $cart = $this->requestStack->getSession()->get('cart', []);
+                if (empty($cart[$id])) {
+                    $cart[$id] = 1;
+                } else {
+                    $cart[$id]++;
+                }
+                $this->getSession()->set('cart', $cart);
+             }
+
+
+
+
+
+
+
+            public function descrease(int $id)
+            {
+                $cart = $this->getSession()->get('cart', []);
+                if ($cart[$id]>1) {
+                    $cart[$id] --;
+                } else {
+                    unset ($cart[$id]);
+                }
+                $this->getSession()->set('cart', $cart);
+             }
+
+
+
+
+
+
+                public function removeToCart(int $id)
+                {
+                    $cart = $this->requestStack->getSession()->get('cart', []);
+                    unset ($cart[$id]);
+                    return $this->getSession()->set('cart', $cart);
+                 }
+
+
+                public function removeCartAll()
+                {
+                return $this->getSession()->remove('cart');
+                }
+
+
+                public function getTotal(): array
+                {
+                    $cart = $this->getSession()->get('cart');
+                    $cartData = [];
+                    if($cart){
+                        foreach($cart as $id =>$quantity){
+                            $product = $this->em->getRepository(Product::class)->findOneBy(['id' => $id]);
+                            if(!$product){
+
+                            }
+                            $cartData[] =[
+                                'product' => $product,
+                                'quantity' => $quantity
+                            ];
+                        }
+                    }
+                    return $cartData;
+                }
+
+
+                private function getSession(): SessionInterface
+                {
+                    return $this->requestStack->getSession();
+                }
 
 }

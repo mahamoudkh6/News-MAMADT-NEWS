@@ -7,15 +7,15 @@
         <h1>Détails du Produit</h1>
 
         <div class="card">
-            <img src="{#{{ asset('eshop/' ~ product.attachment) }}#}" class="card-img-top" alt="{#{{ product.title }}#}">
+<img src="{{ asset('eshop/' ~ product_attachment) }}" class="card-img-top" alt="{{ product_title }}">
             <div class="card-body">
-                <h5 class="card-title">Titre: {#{{ product.title }}#}</h5>
-                <p class="card-text">Contenu: {# {{ product.content }}#}</p>
-                <p class="card-text">Prix: {#{{ product.price }}#} €</p>
-                <p class="card-text">Origine : {#{{ product.origine }}#}</p>
+                <h5 class="card-title">Titre: {{ product_title }}</h5>
+                <p class="card-text">Contenu: {{ product_content }}</p>
+                <p class="card-text">Prix: {{ product_price }} €</p>
+                <p class="card-text">Origine : {{ product_origine }}</p>
             </div>
             <div class="card-footer">
-                <a href="{#{{ path('add_to_cart', {'id': product.id}) }}#}" class="btn btn-primary">Ajouter au panier</a>
+                <a href="{{ path('cart_add', {'id': product_id}) }}" class="btn btn-primary">Ajouter au panier</a>
                 <a href="{{ path('product_list') }}" class="btn btn-primary">Retour à la liste des produits</a>
             </div>
         </div>

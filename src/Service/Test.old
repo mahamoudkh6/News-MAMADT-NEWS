@@ -1,0 +1,26 @@
+<?php
+
+
+
+public function getTotal(): array
+{
+    $cart = $this->getSession()->get('cart');
+
+    // Vérifier si la session 'cart' existe et n'est pas nulle
+    if ($cart === null) {
+        $cart = [];
+    }
+
+    $cartData = [];
+    foreach ($cart as $id => $quantity) {
+        $product = $this->em->getRepository(Product::class)->findOneBy(['id' => $id]);
+        if ($product) {
+            $cartData[] = [
+                'product' => $product,
+                'quantity' => $quantity
+            ];
+        }
+    }
+
+    return $cartData;
+}

@@ -21,7 +21,7 @@
                                 {# <p class="card-text">{{ product.content }}</p> #}
                                 <b>Prix : {{ product.price }} €</b>
                                 <p class="card-text">Origine : {{ product.origine }}</p>
-                                <a href="#" class="btn btn-primary add-to-cart" data-product="{{ product.id }}">Ajouter au panier</a>
+                                <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary add-to-cart" data-product="{{ product.id }}">Ajouter au panier</a>
                             </div>
                         </div>
                     </div>

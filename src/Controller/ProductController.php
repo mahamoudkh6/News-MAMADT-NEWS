@@ -39,16 +39,20 @@ public function show(Product $product): Response
     }
 
     // Préparation des données du produit
+    $productId =$product->getId();
     $productTitle = $product->getTitle();
     $productContent = $product->getContent();
     $productPrice = $product->getPrice();
     $productAttachment = $product->getAttachment();
+    $productOrigine = $product->getOrigine();
 
     return $this->render('product/productShow.html.twig', [
+        'product_id'=>$productId,
         'product_title' => $productTitle,
         'product_content' => $productContent,
         'product_price' => $productPrice,
         'product_attachment' => $productAttachment,
+        'product_origine' => $productOrigine
     ]);
 }
 
