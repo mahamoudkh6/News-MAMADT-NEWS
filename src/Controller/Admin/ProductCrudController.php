@@ -34,7 +34,7 @@ class ProductCrudController extends AbstractCrudController
            TextEditorField::new('content'),
             BooleanField::new('online'),
             TextField::new('attachment'),
-            //TextField::new('attachment')->setFormType(VichImageType::class)->onlyWhenCreating(),
+            TextField::new('attachment')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('attachment')->setBasePath('/uploads/products/attachments')->onlyOnIndex(),
             TextareaField::new('origine'),
             MoneyField::new('price')->setCurrency('EUR'),
