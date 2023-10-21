@@ -1,0 +1,15 @@
+{% extends 'layoutShop.html.twig' %}
+
+{% block title %}Créer une catégorie{% endblock %}
+
+{% block content %}
+    <h1>Créer une catégorie</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">Créer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('products_by_category', {'categoryId': category.id}) }}">Retour à la liste des produits</a>
+{% endblock %}

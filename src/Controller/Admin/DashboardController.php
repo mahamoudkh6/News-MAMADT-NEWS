@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\Admin\CategoryShopCrudController;
 use App\Entity\CategoryShop;
 use App\Entity\Product;
+use App\Entity\Transporter;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Category', 'fa-solid fa-shop', CategoryShop::class);
         yield MenuItem::linkToCrud('produit', 'fa-solid fa-basket-shopping', Product::class);
+        yield MenuItem::linkToCrud('Transporteur', 'fa-solid fa-basket-shopping', Transporter::class);
 
     }
 }

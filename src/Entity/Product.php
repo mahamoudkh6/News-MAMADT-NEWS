@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[Vich\Uploadable]
 class Product
 {
     #[ORM\Id]
@@ -29,21 +33,27 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $origine = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::FLOAT)]
     private ?float $price = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $update_at = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,
+     nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $attachment = null;
+
+    #[Vich\UploadableField(mapping: 'products',
+     fileNameProperty: 'attachment')]
+    private ?File $attachmentFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CategoryShop $category = null;
+
 
     public function getId(): ?int
     {
@@ -82,7 +92,6 @@ class Product
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -94,7 +103,6 @@ class Product
     public function setOnline(bool $online): static
     {
         $this->online = $online;
-
         return $this;
     }
 
@@ -136,12 +144,12 @@ class Product
 
     public function getUpdateAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $update_at): static
+    public function setUpdateAt(?\DateTimeInterface $updated_at): static
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -156,6 +164,21 @@ class Product
         $this->attachment = $attachment;
 
         return $this;
+    }
+
+
+    public function getAttachmentFile(): ?File
+    {
+        return $this->attachmentFile;
+    }
+
+    public function setAttachmentFile(?File $attachmentFile = null): void
+    {
+        $this->attachmentFile = $attachmentFile;
+
+        if(null !== $attachmentFile){
+        $this->updated_at =new \DateTimeImmutable();
+        }
     }
 
     public function getCategory(): ?CategoryShop

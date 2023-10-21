@@ -1,0 +1,4 @@
+parameters:
+    upload_directory: '%kernel.project_dir%/public/uploads/'
+  #  category_shop_upload_directory: '%upload_directory%/category_shop_attachments/'
+  #  product_upload_directory: '%upload_directory%/product_attachments/'

@@ -12,14 +12,16 @@
             {% for product in products %}
                 <div class="col">
                     <div class="card">
-                        <img src="{{ asset('eshop/assets/img/{{ product.attachment }}') }}" width="150" height="200" class="card-img-top" alt="{{ product.title }}">
+                        <img src="{{ product.attachment }}" class="card-img-top" alt="{{ product.title }}">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{#{{ path('product_show', { 'id': product.id }) }}#}" class="text-decoration-none">{{ product.title }}</a></h5>
+                            <h5 class="card-title">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="text-decoration-none">{{ product.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ product.content }}</p>
                         </div>
                         <div class="card-footer">
                             <div class="text-muted">
-                                {# <p class="card-text">{{ product.content }}</p> #}
-                                <b>Prix : {{ product.price }} €</b>
+                                <p class="card-text">Prix : {{ product.price }} €</p>
                                 <p class="card-text">Origine : {{ product.origine }}</p>
                                 <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary add-to-cart" data-product="{{ product.id }}">Ajouter au panier</a>
                             </div>

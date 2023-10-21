@@ -2,14 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryShopRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryShopRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
+
+
 
 #[ORM\Entity(repositoryClass: CategoryShopRepository::class)]
+#[Vich\Uploadable]
 class CategoryShop
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,6 +32,20 @@ class CategoryShop
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $attachment = null;
+
+    #[Vich\UploadableField(mapping: 'category', fileNameProperty: 'attachment')]
+    private ?File $attachmentFile = null;
+
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
+
 
     public function __toString()
     {
@@ -91,5 +114,55 @@ class CategoryShop
         }
 
         return $this;
+    }
+
+    public function getAttachment(): ?string
+    {
+        return $this->attachment;
+    }
+
+    public function setAttachment(string $attachment): static
+    {
+        $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getAttachmentFile(): ?File
+    {
+        return $this->attachmentFile;
+    }
+
+    public function setAttachmentFile(?File $attachmentFile = null): void
+    {
+        $this->attachmentFile = $attachmentFile;
+
+        if (null !== $attachmentFile) {
+            $this->updated_at = new \DateTimeImmutable();
+        }
     }
 }

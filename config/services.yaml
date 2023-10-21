@@ -2,8 +2,17 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+# https://symfony.com/doc/current/best-practices.html#use-parameters-for-application-configuration
 parameters:
+    upload_directory: '%kernel.project_dir%/public/uploads/'
+
+    product_attachments: /uploads/products
+    product_attachments_destination: '%kernel.project_dir%/public/uploads/products'
+
+
+    category_shop_attachments: /uploads/categories
+    category_shop_attachments_destination: '%kernel.project_dir%/public/uploads/categories'
+
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +31,4 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+

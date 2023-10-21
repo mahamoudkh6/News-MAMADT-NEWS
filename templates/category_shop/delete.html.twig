@@ -1,0 +1,15 @@
+{% extends 'layoutShop.html.twig' %}
+
+{% block title %}Supprimer la catégorie {{ category.name }{% endblock %}
+
+{% block content %}
+    <h1>Supprimer la catégorie {{ category.name }}</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.</p>
+
+    {{ form_start(deleteForm) }}
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+    {{ form_end(deleteForm) }}
+
+    <a href="{{ path('products_by_category', {'categoryId': category.id}) }}">Annuler</a>
+{% endblock %}

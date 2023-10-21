@@ -5,99 +5,96 @@
 <section class="h-100" style="background-color: #eee;">
     {% if cart|length > 0 %}
         <div class="container h-100 py-5">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-10" id="shoppingList">
+            <form action="{{ path('order_index') }}">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-10" id="shoppingList">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-normal mb-0 text-black">Mon Panier</h3>
+                            <p>Ajoutez d'autres articles disponibles sur le site <a href="{{ path('product_list') }}">Voir les articles</a></p>
+                         {#   <a href="{{ path('/mon-panier/removeAll') }}">Supprimer tout mon panier</a> #}
+                        </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h3 class="fw-normal mb-0 text-black">Mon Panier</h3>
-                        <p>Ajoutez d'autres articles disponibles sur le site <a href="{{ path('product_list') }}">Voir les articles</a></p>
-                    </div>
+                        {% set total = 0 %}
+                        {% for item in cart %}
+                        {% set total = total + ( item.product.price * item.quantity ) %}
 
-                    {% set total = null %}
-                    {% for item in cart %}
-                        {% set quantity = item.quantity %}
-                        {% set total = total + (item.product.price * item.quantity) %}
-                        {% set productPrice = item.product.price %}
-                        {% set subtotal = quantity * productPrice %}
-                        {% set total = total + subtotal %}
+                            <div class="card rounded-3 mb-4">
+                                <div class="card-body p-4">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src="{{ item.product.attachment }}" class="img-fluid rounded-3" alt="{{ item.product.title }}">
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <p class="lead fw-normal mb-2">{{ item.product.title }}</p>
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex align-items-center">
+                                            <h5>{{ item.product.price }}</h5>
+                                            <div class="count-input ms-n3">
+                                                <a href="{{ path('cart_descrease', {id: item.product.id}) }}" class="btn btn-icon fs-xl" data-decrement>-</a>
+                                                <input class="form-control" type="number" value="{{ item.quantity }}" readonly>
+                                                <a href="{{ path('cart_add', {id: item.product.id}) }}" class="btn btn-icon fs-xl" data-increment>+</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 d-flex align-items-center">
+                                            <h5 id="subTotal-{{ item.product.id }}" class="mb-0">€{{ ( item.product.price * item.quantity )  }}</h5>
+                                        </div>
+
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="{{ path('cart_remove', {id: item.product.id}) }}">
+                                                <button id="{{ item.product.id }}" type="button" class="text-danger btn specialDeleteClass">
+                                                    <i class="fas fa-trash fa-lg"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
                         <div class="card rounded-3 mb-4">
                             <div class="card-body p-4">
-                                <div class="row d-flex align-items-center">
+                                <ul class="list-unstyled py-3 mb-0">
+                                    <li class="row d-flex justify-content-between align-items-center">
+                                        <span class="fw-semibold ms-2">Nombre de produits :{{ cart|length }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <div class="row d-flex justify-content-between align-items-center">
                                     <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img src="{{item.product.attachment}}" class="img-fluid rounded-3" alt="{{ item.product.title }}">
+                                        <p class="lead fw-bolder mb-2">Total à payer :</p>
                                     </div>
-
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <p class="lead fw-normal mb-2">{{item.product.title}}</p>
+                                    <div class="col-md-3 col-lg-3 col-xl-3"></div>
+                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex"></div>
+                                    <div class="text-end ms-auto">
+                                        <div class="fs-5 mb-2">{{ total|number_format(2, '.', ' ') }} €</div>
                                     </div>
-
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex align-items-center">
-                                        <h5>{{item.product.price}}</h5>
-                                        <div class="count-input ms-n3">
-                                            <a href="{{ path('cart_descrease', {id: item.product.id}) }}" class="btn btn-icon fs-xl" data-decrement>-</a>
-                                            <input class="form-control" type="number" value="{{ item.quantity }}" readonly>
-                                            <a href="{{ path('cart_add', {id: item.product.id}) }}" class="btn btn-icon fs-xl" data-increment>+</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 d-flex align-items-center">
-                                        <h5 id="subTotal-{{item.product.id}}" class="mb-0">€{{subtotal}}</h5>
-                                    </div>
-
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="{{ path('cart_remove', {id: item.product.id}) }}">
-                                            <button id="{#{{item.product_id}} #}" type="button" class="text-danger btn specialDeleteClass">
-                                                <i class="fas fa-trash fa-lg"></i>
-                                            </button>
-                                        </a>
-                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end"></div>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
 
-                    <div class="card rounded-3 mb-4">
-                        <div class="card-body p-4">
-                            <ul class="list-unstyled py-3 mb-0">
-                                <li class="row d-flex justify-content-between align-items-center">
-                                    <span class="fw-semibold ms-2">Nombre de produits :{{ cart|length }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card rounded-3 mb-4">
-                        <div class="card-body p-4">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="col-md-2 col-lg-2 col-xl-2">
-                                    <p class="lead fw-bolder mb-2">Total à payer :</p>
-                                </div>
-                                <div class="col-md-3 col-lg-3 col-xl-3"></div>
-                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex"></div>
-                                <div class="text-end ms-auto">
-                                    <div class="fs-5 mb-2">{{ (total )|number_format(2, '.', ' ') }} €</div>
-                                </div>
-                                <div class="col-md-1 col-lg-1 col-xl-1 text-end"></div>
+                        <div class="my-5">
+                            <div class="card-body">
+                                <a href="{{ path('order_index') }}"><button type="button" id="goToCheckout" class="btn btn-success btn-block btn-lg">Valider mon panier</button></a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="my-5">
-                        <div class="card-body">
-                            <button type="button" id="goToCheckout" class="btn btn-success btn-block btn-lg">Passer à la Caisse</button>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="card">
-                        <div class="card-body">
-                            <p>Votre panier est vide. <a href="{{ path('product_list') }}">Commencez vos achats</a></p>
-                        </div>
-                    </div>
-                {% endif %}
                 </div>
+            </form>
+        </div>
+    </section>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <p>Votre panier est vide. <a href="{{ path('product_list') }}">Commencez vos achats</a></p>
             </div>
         </div>
-    </div>
-</section>
+    {% endif %}
 {% endblock %}
