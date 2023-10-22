@@ -31,15 +31,6 @@ class ProductController extends AbstractController
 
 
 
-    #[Route('/test', name: 'test')]
-    public function test(ProductRepository $productRepository): Response
-    {
-        $products = $productRepository->findOldProducts();
-            dd ($products);
-
-    }
-
-
 
 
 
