@@ -2,63 +2,28 @@
 
 namespace App\Controller;
 
-use App\Service\CartService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Repository\CategoryShopRepository;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class CartController extends AbstractController
+class HomeController extends AbstractController
 {
-    #[Route('/mon-panier', name: 'cart_index')]
-    public function index(CartService $cartService): Response
-    {
-       // dd($cartService->getTotal());
-        return $this->render('cart/index.html.twig', [
-            'cart' => $cartService->getTotal()
-        ]);
+#[Route('/', name: 'home')]
+public function index(
+    CategoryShopRepository $categoryShopRepository,
+    ProductRepository $productRepository
+) {
+    // Récupérez la liste des catégories depuis la base de données
+    $categories = $categoryShopRepository->findAll();
+
+    // Récupérez les 5 anciens produits depuis la base de données
+    $oldProducts = $productRepository->findOldProducts(5);
+
+    return $this->render('home/index.html.twig', [
+        'categories' => $categories,
+        'oldProducts' => $oldProducts,
+    ]);
     }
-
-
-
-    #[Route('/mon-panier/add/{id<\d+>}', name: 'cart_add')]
-    public function addToCart(CartService $cartService, int $id): Response
-    {
-        $cartService->addToCart($id);
-        return $this->redirectToRoute('cart_index');
-    }
-
-
-
-    #[Route('/mon-panier/remove/{id<\d+>}', name: 'cart_remove')]
-    public function removeToCart(CartService $cartService, int $id): Response
-    {
-        $cartService->removeToCart($id);
-        return $this->redirectToRoute('cart_index');
-    }
-
-    #[Route('/mon-panier/descrease/{id<\d+>}', name: 'cart_descrease')]
-    public function descrease(CartService $cartService, int $id): RedirectResponse
-    {
-        $cartService->descrease($id);
-        return $this->redirectToRoute('cart_index');
-    }
-
-
-
-
-
-    #[Route('/mon-panier/removeAll', name: 'cart_removeAll')]
-    public function removeAll(CartService $cartService): Response
-    {
-        $cartService->removeCartAll();
-        return $this->redirectToRoute('product_list');
-    }
-
 }
-
-
-
-
-
-

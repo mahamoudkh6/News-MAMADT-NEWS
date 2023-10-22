@@ -21,6 +21,26 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+
+    public function findOldProducts(int $nb = 5): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Product p
+            WHERE p.online = :status
+            ORDER BY p.createdAt ASC'
+        )
+        ->setParameter('status', true)
+        ->setMaxResults($nb)
+        ;
+
+        return $query->getResult();
+    }
+
+
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

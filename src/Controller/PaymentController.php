@@ -25,26 +25,6 @@ class PaymentController extends AbstractController
         $this->generator = $generator;
     }
 
-
-/**
- *@return PayPalHttpClient
- */
-
-
-public function payPalHttpClient()
-{
-$clientid='';
-$clientSecret ='';
-$environnement = newSanboxEnvironnement($client, $clientSecret);
-return new PayPalHttpClient($environnement);
-}
-
-
-
-
-
-
-
     #[Route('/order/create-session-stripe/{reference}', name: 'payment_stripe', methods: ['POST'])]
     public function index($reference): RedirectResponse
     {
@@ -119,10 +99,3 @@ return new PayPalHttpClient($environnement);
         return $this->render('order/error.html.twig');
     }
 }
-
-
-
-
-
-
-

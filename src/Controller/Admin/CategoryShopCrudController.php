@@ -22,8 +22,7 @@ class CategoryShopCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
-            TextField::new('attachment'),
-           // TextField::new('attachment')->setFormType(VichImageType::class)->onlyWhenCreating(),
+            TextField::new('attachmentFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('attachment')->setBasePath('/uploads/category/attachments')->onlyOnIndex(),
 
         ];

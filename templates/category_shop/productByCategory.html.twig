@@ -12,7 +12,7 @@
             {% for product in products %}
                 <div class="col">
                     <div class="card">
-                        <img src="{{ product.attachment }}" class="card-img-top" alt="{{ product.title }}">
+                        <img src="{{  vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top" alt="{{ product.title }}">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="{{ path('product_show', { 'id': product.id }) }}" class="text-decoration-none">{{ product.title }}</a>
@@ -32,3 +32,5 @@
         </div>
     </div>
 {% endblock %}
+
+

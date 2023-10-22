@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,22 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
+
+
+
+
+    #[Route('/test', name: 'test')]
+    public function test(ProductRepository $productRepository): Response
+    {
+        $products = $productRepository->findOldProducts();
+            dd ($products);
+
+    }
+
+
+
+
+
 
     /**
      * @Route("/product/{id}", name="product_show")

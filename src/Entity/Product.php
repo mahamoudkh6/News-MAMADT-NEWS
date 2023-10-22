@@ -39,15 +39,13 @@ class Product
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE,
-     nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $attachment = null;
 
-    #[Vich\UploadableField(mapping: 'products',
-     fileNameProperty: 'attachment')]
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'attachment')]
     private ?File $attachmentFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -92,6 +90,7 @@ class Product
     public function setContent(string $content): static
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -103,6 +102,7 @@ class Product
     public function setOnline(bool $online): static
     {
         $this->online = $online;
+
         return $this;
     }
 
@@ -154,6 +154,8 @@ class Product
         return $this;
     }
 
+
+
     public function getAttachment(): ?string
     {
         return $this->attachment;
@@ -165,6 +167,7 @@ class Product
 
         return $this;
     }
+
 
 
     public function getAttachmentFile(): ?File
@@ -180,6 +183,7 @@ class Product
         $this->updated_at =new \DateTimeImmutable();
         }
     }
+
 
     public function getCategory(): ?CategoryShop
     {

@@ -49,9 +49,6 @@ class CartService
 
 
 
-
-
-
                 public function removeToCart(int $id)
                 {
                     $cart = $this->requestStack->getSession()->get('cart', []);

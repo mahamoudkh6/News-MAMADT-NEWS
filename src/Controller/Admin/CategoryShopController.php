@@ -15,9 +15,15 @@ class CategoryShopController extends AbstractController
 {
     private $categoryShopRepository;
 
-    public function __construct(CategoryShopRepository $categoryShopRepository)
+    /*public function __construct(CategoryShopRepository $categoryShopRepository)
     {
         $this->categoryShopRepository = $categoryShopRepository;
+    }*/
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     #[Route('/category/{categoryId}', name: 'products_by_category')]

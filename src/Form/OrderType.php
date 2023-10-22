@@ -33,7 +33,6 @@ class OrderType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'multiple' => false,
-
                 'expanded' => true
             ] )
 

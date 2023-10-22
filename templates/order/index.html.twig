@@ -30,7 +30,7 @@
                     <span class="fs-base fw-normal text-muted">({{ recapCart|length }} produits)</span>
                 </h2>
 
-                {% set total = null %}
+                {% set total = 0 %}
                 {% for product in recapCart %}
                     {% set total = total + (product.product.price * product.quantity) %}
                     <div class="d-sm-flex align-items-center border-top py-4">
