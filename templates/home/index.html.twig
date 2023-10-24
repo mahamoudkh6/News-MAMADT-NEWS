@@ -58,7 +58,9 @@
                 {% for category in categories %}
                    <div class="col">
 						<div class="card category-card">
-							<img src="{{ category.attachment }}" class="card-img-top category-image" alt="{{ category.name }}">
+							<img src="{{ vich_uploader_asset(category, 'attachmentFile') }}" class="card-img-top category-image" alt="{{ category.name }}">
+                      {#  <img src="{{  vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top product-image" alt="{{ product.title }}">
+#}
 							<div class="card-body">
 								<h5 class="card-title">
 									<a href="{{ path('products_by_category', {'categoryId': category.id}) }}" class="text-decoration-none">{{ category.name }}</a>

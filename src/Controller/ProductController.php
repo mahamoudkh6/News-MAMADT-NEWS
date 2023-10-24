@@ -29,12 +29,6 @@ class ProductController extends AbstractController
     }
 
 
-
-
-
-
-
-
     /**
      * @Route("/product/{id}", name="product_show")
      */
@@ -54,6 +48,7 @@ class ProductController extends AbstractController
         $productOrigine = $product->getOrigine();
 
         return $this->render('product/productShow.html.twig', [
+            'product' => $product,
             'product_id'=>$productId,
             'product_title' => $productTitle,
             'product_content' => $productContent,

@@ -15,15 +15,9 @@ class CategoryShopController extends AbstractController
 {
     private $categoryShopRepository;
 
-    /*public function __construct(CategoryShopRepository $categoryShopRepository)
+    public function __construct(CategoryShopRepository $categoryShopRepository)
     {
         $this->categoryShopRepository = $categoryShopRepository;
-    }*/
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
     }
 
     #[Route('/category/{categoryId}', name: 'products_by_category')]
@@ -50,11 +44,6 @@ class CategoryShopController extends AbstractController
     }
 
 
-
-
-
-
-
    // #[Security("is_granted('ROLE_ADMIN') and is_granted('PRODUCT', product)")]
     #[Route('/admin/category/create', name: 'admin_category_create')]
     public function createCategory(Request $request): Response
@@ -76,8 +65,6 @@ class CategoryShopController extends AbstractController
             'h1'=>'Ajouter une categorie'
         ]);
     }
-
-
 
 /*
 
@@ -135,3 +122,4 @@ class CategoryShopController extends AbstractController
         return $this->redirectToRoute('products_by_category', ['categoryId' => $category->getId()]);
     }
 }
+

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use App\Entity\CategoryShop;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -24,7 +25,7 @@ class CategoryShopCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('name'),
             TextField::new('attachmentFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('attachment')->setBasePath('/uploads/category/attachments')->onlyOnIndex(),
-
+            DateField::new('createdAt'),
         ];
     }
 

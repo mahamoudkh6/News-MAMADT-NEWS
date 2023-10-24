@@ -9,12 +9,12 @@
         <div class="card">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{{  vich_uploader_asset(product, 'attachmentFile') }}"  class="card-img" alt="{{ product_title }}">
+                        <img src="{{  vich_uploader_asset(product, 'attachmentFile') }}" class="card-img-top product-image" alt="{{ product.title }}">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ product_title }}</h5>
-                        <p class="card-text">{{ product_content }}</p>
+                      <p class="card-text">{{ product_content }}</p>
                         <p class="card-text">Prix: {{ product_price }} €</p>
                         <p class="card-text">Origine: {{ product_origine }}</p>
                     </div>
@@ -27,6 +27,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-

@@ -26,7 +26,7 @@ class OrderController extends AbstractController
         }
 
         $form = $this->createForm(OrderType::class, null, ['user' => $this->getUser()]);
-        return $this->render('order/index.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'form' => $form->createView(),
             'recapCart' => $cartService->getTotal(),
         ]);
